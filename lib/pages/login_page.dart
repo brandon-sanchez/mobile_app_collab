@@ -18,7 +18,8 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(0xFFF5F5F5),
         body: SafeArea(
-            child: Center(
+            child: SingleChildScrollView(
+                child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -45,23 +46,44 @@ class LoginPage extends StatelessWidget {
                 controller: usernameController,
                 hintText: 'Username',
                 obscureText: false,
+                maxLength: 20,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your username';
+                  }
+                  return '';
+                },
               ),
 
               const SizedBox(height: 10),
 
               //password textfield
               MyTextField(
-                controller: usernameController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                  maxLength: 20,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    if (value.length < 8) {
+                      return 'Password must be at least 8 characters long';
+                    }
+                    String pattern =
+                        r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                    RegExp regex = new RegExp(pattern);
+                    if (!regex.hasMatch(value))
+                      return 'Password must contain at least 1 number, 1 capital letter, and 1 special character.';
+                    return '';
+                  }),
 
               const SizedBox(height: 10),
 
               //forgot password
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
+                child: const Text(
                   'Forgot Password?',
                   style: TextStyle(color: Color(0xFF0074E4)),
                 ),
@@ -137,6 +159,6 @@ class LoginPage extends StatelessWidget {
               ]),
             ],
           ),
-        )));
+        ))));
   }
 }

@@ -1,17 +1,22 @@
-import 'dart:async';
+// Remove the unused import 'dart:async'
+// import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
-  final controller;
+  final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final int maxLength;
+  final String Function(String) validator;
 
   const MyTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    required this.maxLength,
+    required this.validator,
   });
 
   @override
