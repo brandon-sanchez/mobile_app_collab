@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //App Bar
       appBar: AppBar(title: Text('Home')),
       drawer: Drawer(
-        backgroundColor: Colors.grey,
-        child: ListView(
-          children:[
+          backgroundColor: Colors.grey,
+          child: ListView(children: [
             //Image of side menu
             DrawerHeader(
-              child: Image.asset('lib/images/lebron.jpg', width: 10, height: 10),
+              child:
+                  Image.asset('lib/images/lebron.jpg', width: 10, height: 10),
             ),
 
             //Home Tile / Button
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/standings');
               },
             ),
-            
+
             //Teams Tile / Button
             ListTile(
               title: Text('Teams'),
@@ -61,9 +61,7 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/players');
               },
             ),
-          ]
-        )
-      ),
+          ])),
     );
   }
 }
