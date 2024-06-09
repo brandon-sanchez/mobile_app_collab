@@ -19,28 +19,22 @@ class _TeamsPageState extends State<TeamsPage> {
       'x-rapidapi-key': 'c58bd41582msh5ab0fd968e4ca6fp1dfebcjsn6754b6572502',
     };
 
-    // Include the query parameters in the request if they are provided
     var uri = Uri.https('api-nba-v1.p.rapidapi.com', '/teams', queryParams);
 
     var response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
-      print('Raw Response: ${response.body}');
       var parsedJson = json.decode(response.body);
       if (parsedJson != null && parsedJson['response'] != null) {
         List<dynamic> teamsJson = parsedJson['response'];
-        List<Team> nbateams = teamsJson
+        List<Team> nbaTeams = teamsJson
             .map((json) => Team.fromJson(json))
             .where((team) => team.nbaFranchise == true)
             .toList();
 
-        //Debugging
-        print(
-            'Conference of first team: ${nbateams.first.conference}, division: ${nbateams.first.division}');
-        return nbateams;
+        return nbaTeams;
       } else {
-        throw Exception(
-            'The expected "response" key was not found in the response.');
+        throw Exception('The expected "response" key was not found in the response.');
       }
     } else {
       throw Exception('Failed to load teams: ${response.reasonPhrase}');
@@ -50,7 +44,6 @@ class _TeamsPageState extends State<TeamsPage> {
   @override
   void initState() {
     super.initState();
-    // Fetch all teams or provide specific query parameters here if needed
     _futureTeams = fetchTeams();
   }
 
@@ -71,12 +64,10 @@ class _TeamsPageState extends State<TeamsPage> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                Team nbateam = snapshot.data![index];
+                Team nbaTeam = snapshot.data![index];
                 return ListTile(
-                  title: Text(
-                      '${nbateam.name ?? 'Unknown Name'} (${nbateam.code ?? 'N/A'})'),
-                  subtitle: Text(
-                      'Conference: ${nbateam.conference ?? 'N/A'}, Division: ${nbateam.division ?? 'N/A'}'),
+                  title: Text('${nbaTeam.name ?? 'Unknown Name'} (${nbaTeam.code ?? 'N/A'})'),
+                  subtitle: Text('Conference: ${nbaTeam.conference ?? 'N/A'}, Division: ${nbaTeam.division ?? 'N/A'}'),
                 );
               },
             );

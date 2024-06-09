@@ -16,15 +16,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginPage(),
-        routes: {
-          '/loginpage': (context) => LoginPage(),
-          '/homepage': (context) => HomePage(),
-          '/livescores': (context) => LiveScoresPage(),
-          '/standings': (context) => StandingsPage(),
-          '/teams': (context) => TeamsPage(),
-          '/players': (context) => PlayersPage(),
-        });
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(), // Initial screen set to LoginPage
+      routes: {
+        '/loginpage': (context) => LoginPage(),
+        '/homepage': (context) => HomePage(),
+        '/livescores': (context) => LiveScoresPage(),
+        '/standings': (context) => StandingsPage(),
+        '/teams': (context) => TeamsPage(),
+        '/players': (context) => PlayersPage(),
+      },
+    );
   }
 }
